@@ -17,26 +17,32 @@ A web-based tool for creating and managing AI character definitions with knowled
 - npm (v6 or higher)
 - An OpenRouter API key (get one from [openrouter.ai](https://openrouter.ai))
 
-## Installation
+## Quick Start
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/HowieDuhzit/Eliza-Character-Generator
-cd Eliza-Character-Generator
+git clone [repository-url]
+cd eliza-generator
 ```
 
-2. Run the installation script:
+2. Make the install script executable and run it:
 ```bash
 chmod +x install.sh
 ./install.sh
 ```
 
-3. Start the server:
+3. Edit the .env file and add your OpenRouter API key:
+```bash
+nano .env
+# Add your API key to the OPENROUTER_API_KEY line
+```
+
+4. Start the server:
 ```bash
 npm start
 ```
 
-4. Open your browser and navigate to `http://localhost:4000`
+5. Open your browser and navigate to `http://localhost:4000`
 
 ## Usage
 
@@ -86,45 +92,25 @@ npm start
 - JSON format
 - Must contain required character definition fields
 
-## Sections Guide
-
-### Basic Information
-- Character Name: The character's full name
-- Model Provider: AI model provider name
-- Voice Model: Optional voice synthesis model identifier
-
-### Character Details
-- Bio: Background and personality traits
-- Lore: Character's world and history
-- Topics: Knowledge areas and interests
-
-### Style
-- General Style: Overall communication patterns
-- Chat Style: Conversation-specific behavior
-- Post Style: Content creation style
-
-### Examples
-- Message Examples: Sample interactions
-- Post Examples: Sample content posts
-
-### Adjectives
-- Single-word traits describing the character
-
 ## Troubleshooting
 
 ### Common Issues
 
-1. Server Connection Error
+1. Installation Warnings
+   - If you see module compatibility warnings during installation, they can be safely ignored
+   - The warnings are related to experimental features but don't affect functionality
+
+2. Server Connection Error
    - Ensure the server is running
    - Check if port 4000 is available
    - Verify your internet connection
 
-2. API Key Issues
+3. API Key Issues
    - Ensure your OpenRouter API key is valid
    - Check if the key is properly saved
    - Verify the key format (should start with 'sk-')
 
-3. File Processing Issues
+4. File Processing Issues
    - Check file format compatibility
    - Ensure files are not corrupted
    - Verify file size is reasonable
@@ -135,10 +121,22 @@ npm start
 - "Failed to parse JSON": Invalid character file format
 - "No files to process": No knowledge files selected
 
+## Development
+
+To run in development mode with auto-reload:
+```bash
+npm run dev
+```
+
+To run tests:
+```bash
+npm test
+```
+
 ## Support
 
 For issues and feature requests, please create an issue in the repository.
 
 ## License
 
-[License Information]
+[MIT License](LICENSE)
