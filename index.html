@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliza Character Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Eliza Character Generator</h1>
+
+        <div class="top-sections">
+            <section class="section half-width">
+                <div class="section-header">Character Generation (OPTIONAL)</div>
+                <div class="section-content">
+                    <div class="form-group">
+                        <label for="api-key">OpenRouter API Key</label>
+                        <input type="text" id="api-key" placeholder="Enter your OpenRouter API key starting with 'sk-' from openrouter.ai">
+                        <button id="save-key">Save Key</button>
+                        <div id="api-key-status"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="character-prompt">Character Description</label>
+                        <textarea id="character-prompt" placeholder="Describe your character in detail. Include their personality traits, background story, speaking style, interests, and any unique characteristics that define them."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="model-select">AI Model</label>
+                        <select id="model-select">
+                            <option value="openai/gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                            <option value="anthropic/claude-2">Claude 2</option>
+                            <option value="google/palm-2">PaLM 2</option>
+                        </select>
+                    </div>
+                    <button id="generate-from-prompt">Generate from Prompt</button>
+                    <div id="prompt-status"></div>
+                    <div class="debug-section">
+                        <h3>Raw Prompt</h3>
+                        <div id="raw-prompt" class="debug-output"></div>
+                        <h3>Raw Response</h3>
+                        <div id="raw-response" class="debug-output"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section half-width">
+                <div class="section-header">Load Character</div>
+                <div class="section-content">
+                    <div class="drop-zone" id="character-drop-zone">
+                        <p>Drag and drop an existing character JSON file here to load its settings</p>
+                    </div>
+                    <div class="file-select">
+                        <input type="file" id="character-file-input" accept=".json" style="display: none;">
+                        <button id="character-file-button" class="file-select-button">Select Character File</button>
+                    </div>
+                    <div id="character-file-status"></div>
+                </div>
+            </section>
+        </div>
+
+        <section class="section">
+            <div class="section-header">Basic Information</div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label for="character-name">Character Name</label>
+                    <input type="text" id="character-name" placeholder="Enter the character's full name (e.g., John Smith, Lady Catherine)">
+                </div>
+                <div class="form-group">
+                    <label for="model-provider">Model Provider</label>
+                    <input type="text" id="model-provider" placeholder="AI model provider name (e.g., OpenAI, Anthropic, Google)">
+                </div>
+                <div class="form-group">
+                    <label for="voice-model">Voice Model</label>
+                    <input type="text" id="voice-model" placeholder="Voice synthesis model identifier for text-to-speech">
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">Character Details</div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label for="bio">Bio</label>
+                    <textarea id="bio" placeholder="Write the character's biography. Include their background, life experiences, and key personality traits. Write one complete sentence per line."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="lore">Lore</label>
+                    <textarea id="lore" placeholder="Describe the character's world, history, and important events that shaped them. Write one complete sentence per line."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="topics">Topics</label>
+                    <textarea id="topics" placeholder="List topics the character is knowledgeable about or interested in. Write one complete sentence per line."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">Style</div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label for="style-all">General Style</label>
+                    <textarea id="style-all" placeholder="Describe how the character communicates in general. Include speech patterns, mannerisms, and typical expressions. Write one complete sentence per line."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="style-chat">Chat Style</label>
+                    <textarea id="style-chat" placeholder="Describe how the character behaves in conversations. Include response patterns and chat-specific mannerisms. Write one complete sentence per line."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="style-post">Post Style</label>
+                    <textarea id="style-post" placeholder="Describe how the character writes posts or longer content. Include formatting preferences and writing style. Write one complete sentence per line."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">Examples</div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label>Message Examples</label>
+                    <div id="message-examples-container"></div>
+                    <button id="add-example">Add Example</button>
+                </div>
+                <div class="form-group">
+                    <label for="post-examples">Post Examples</label>
+                    <textarea id="post-examples" placeholder="Write example posts that demonstrate the character's writing style. Include different types of content they might create. Write one complete post per line."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">Adjectives</div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label for="adjectives">Character Adjectives</label>
+                    <textarea id="adjectives" placeholder="List single-word adjectives that describe the character's personality and traits. Separate words with spaces (e.g., friendly outgoing intelligent creative diplomatic)"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">Knowledge Processing</div>
+            <div class="section-content">
+                <div class="drop-zone" id="drop-zone">
+                    <p>Drag and drop PDF or text files here to add to the character's knowledge base</p>
+                </div>
+                <div class="file-select">
+                    <input type="file" id="file-input" multiple style="display: none;">
+                    <button id="file-button" class="file-select-button">Select Knowledge Files</button>
+                </div>
+                <div id="file-list"></div>
+                <div id="processing-status"></div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">Character Result</div>
+            <div class="section-content">
+                <div id="knowledge-content" class="debug-output"></div>
+                <div class="button-group">
+                    <button id="generate-json">Generate Character</button>
+                    <button id="download-json" disabled>Download Character JSON</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
