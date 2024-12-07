@@ -22,7 +22,7 @@ A web-based tool for creating and managing AI character definitions with knowled
 1. Clone the repository:
 ```bash
 git clone https://github.com/HowieDuhzit/Eliza-Character-Generator
-cd eliza-frontend
+cd Eliza-Character-Generator
 ```
 
 2. Run the installation script:
