@@ -21,7 +21,7 @@ A web-based tool for creating and managing AI character definitions with knowled
 
 1. Clone the repository:
 ```bash
-git clone [repository-url]
+git clone https://github.com/HowieDuhzit/Eliza-Character-Generator/blob/main/README.md
 cd eliza-generator
 ```
 
